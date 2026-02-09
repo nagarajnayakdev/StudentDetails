@@ -1,0 +1,1926 @@
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Student Dashboard</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">-->
+<!--    <style>-->
+<!--        :root {-->
+<!--            &#45;&#45;primary: #4F7382;-->
+<!--            &#45;&#45;primary-dark: #3d5a66;-->
+<!--            &#45;&#45;secondary: #B8E3E9;-->
+<!--            &#45;&#45;accent: #0B2E33;-->
+<!--            &#45;&#45;danger: #C16A6A;-->
+<!--            &#45;&#45;text: #0B2E33;-->
+<!--            &#45;&#45;background: #F0F9FB;-->
+<!--            &#45;&#45;card-bg: #FFFFFF;-->
+<!--            &#45;&#45;sidebar-bg: #4F7382;-->
+<!--            &#45;&#45;topbar-bg: #FFFFFF;-->
+<!--            &#45;&#45;success: #4F7382;-->
+<!--            &#45;&#45;warning: #D4A96A;-->
+<!--        }-->
+
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            font-family: "Segoe UI", system-ui, sans-serif;-->
+<!--            background: var(&#45;&#45;background);-->
+<!--            color: var(&#45;&#45;text);-->
+<!--            overflow-x: hidden;-->
+<!--            min-height: 100vh;-->
+<!--            line-height: 1.6;-->
+<!--        }-->
+
+<!--        /* &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; SIDEBAR &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; */-->
+<!--        .sidebar {-->
+<!--            position: fixed;-->
+<!--            left: 0;-->
+<!--            top: 0;-->
+<!--            width: 280px;-->
+<!--            height: 100vh;-->
+<!--            background: var(&#45;&#45;sidebar-bg);-->
+<!--            color: white;-->
+<!--            padding: 25px 0;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            z-index: 100;-->
+<!--            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);-->
+<!--            transition: all 0.3s ease;-->
+<!--            border-right: 1px solid rgba(255, 255, 255, 0.1);-->
+<!--        }-->
+
+<!--        .sidebar-header {-->
+<!--            padding: 0 25px 25px;-->
+<!--            text-align: center;-->
+<!--            border-bottom: 1px solid rgba(255, 255, 255, 0.2);-->
+<!--            margin-bottom: 25px;-->
+<!--        }-->
+
+<!--        .sidebar h2 {-->
+<!--            font-size: 24px;-->
+<!--            letter-spacing: 1px;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            gap: 12px;-->
+<!--            color: white;-->
+<!--            font-weight: 600;-->
+<!--        }-->
+
+<!--        .sidebar h2 i {-->
+<!--            font-size: 26px;-->
+<!--            color: var(&#45;&#45;secondary);-->
+<!--        }-->
+
+<!--        .sidebar-menu {-->
+<!--            flex: 1;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            gap: 8px;-->
+<!--            padding: 0 20px;-->
+<!--        }-->
+
+<!--        .sidebar a {-->
+<!--            padding: 16px 20px;-->
+<!--            color: rgba(255, 255, 255, 0.9);-->
+<!--            text-decoration: none;-->
+<!--            font-size: 16px;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            border-radius: 10px;-->
+<!--            transition: all 0.3s ease;-->
+<!--            position: relative;-->
+<!--            overflow: hidden;-->
+<!--        }-->
+
+<!--        .sidebar a i {-->
+<!--            margin-right: 14px;-->
+<!--            font-size: 18px;-->
+<!--            width: 24px;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .sidebar a:hover {-->
+<!--            background: rgba(147, 177, 181, 0.3);-->
+<!--            color: white;-->
+<!--            transform: translateX(5px);-->
+<!--        }-->
+
+<!--        .sidebar a.active {-->
+<!--            background: rgba(11, 46, 51, 0.3);-->
+<!--            color: white;-->
+<!--            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);-->
+<!--        }-->
+
+<!--        .sidebar a.active::before {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            left: 0;-->
+<!--            top: 0;-->
+<!--            height: 100%;-->
+<!--            width: 4px;-->
+<!--            background: var(&#45;&#45;secondary);-->
+<!--            border-radius: 0 4px 4px 0;-->
+<!--        }-->
+
+<!--        .logout {-->
+<!--            margin-top: auto;-->
+<!--            background: rgba(193, 106, 106, 0.2);-->
+<!--            color: white;-->
+<!--            border-radius: 0;-->
+<!--            border-top: 1px solid rgba(255, 255, 255, 0.2);-->
+<!--        }-->
+
+<!--        .logout:hover {-->
+<!--            background: rgba(193, 106, 106, 0.3);-->
+<!--        }-->
+
+<!--        /* &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; TOPBAR &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; */-->
+<!--        .topbar {-->
+<!--            margin-left: 280px;-->
+<!--            height: 70px;-->
+<!--            background: var(&#45;&#45;topbar-bg);-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: space-between;-->
+<!--            padding: 0 35px;-->
+<!--            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);-->
+<!--            position: relative;-->
+<!--            z-index: 99;-->
+<!--            border-bottom: 1px solid rgba(0, 0, 0, 0.05);-->
+<!--        }-->
+
+<!--        .topbar h1 {-->
+<!--            font-size: 26px;-->
+<!--            color: var(&#45;&#45;primary);-->
+<!--            font-weight: 700;-->
+<!--        }-->
+
+<!--        .user-profile {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 15px;-->
+<!--        }-->
+
+<!--        .user-profile i {-->
+<!--            font-size: 26px;-->
+<!--            color: var(&#45;&#45;primary);-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease;-->
+<!--        }-->
+
+<!--        .user-profile i:hover {-->
+<!--            color: var(&#45;&#45;accent);-->
+<!--            transform: scale(1.1);-->
+<!--        }-->
+
+<!--        .user-info {-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: flex-end;-->
+<!--        }-->
+
+<!--        .user-name {-->
+<!--            font-weight: 600;-->
+<!--            color: var(&#45;&#45;primary);-->
+<!--        }-->
+
+<!--        .user-role {-->
+<!--            font-size: 13px;-->
+<!--            color: var(&#45;&#45;text);-->
+<!--            opacity: 0.7;-->
+<!--        }-->
+
+<!--        /* &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; CONTENT &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; */-->
+<!--        .content {-->
+<!--            margin-left: 280px;-->
+<!--            padding: 40px;-->
+<!--            min-height: calc(100vh - 70px);-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            background: var(&#45;&#45;background);-->
+<!--        }-->
+
+<!--        .card {-->
+<!--            background: var(&#45;&#45;card-bg);-->
+<!--            padding: 35px;-->
+<!--            border-radius: 15px;-->
+<!--            width: 100%;-->
+<!--            max-width: 520px;-->
+<!--            box-shadow: 0 10px 30px rgba(79, 115, 130, 0.1);-->
+<!--            transition: all 0.3s ease;-->
+<!--            border: 1px solid rgba(184, 227, 233, 0.3);-->
+<!--        }-->
+
+<!--        .card:hover {-->
+<!--            box-shadow: 0 15px 40px rgba(79, 115, 130, 0.15);-->
+<!--            transform: translateY(-5px);-->
+<!--        }-->
+
+<!--        .card-header {-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 30px;-->
+<!--            padding-bottom: 20px;-->
+<!--            border-bottom: 1px solid rgba(184, 227, 233, 0.5);-->
+<!--        }-->
+
+<!--        .card h2 {-->
+<!--            color: var(&#45;&#45;primary);-->
+<!--            font-size: 26px;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            gap: 12px;-->
+<!--            font-weight: 700;-->
+<!--        }-->
+
+<!--        .card h2 i {-->
+<!--            color: var(&#45;&#45;primary);-->
+<!--        }-->
+
+<!--        .form-group {-->
+<!--            margin-bottom: 22px;-->
+<!--        }-->
+
+<!--        label {-->
+<!--            font-weight: 600;-->
+<!--            display: block;-->
+<!--            margin-bottom: 10px;-->
+<!--            color: var(&#45;&#45;primary);-->
+<!--            font-size: 15px;-->
+<!--        }-->
+
+<!--        input {-->
+<!--            width: 100%;-->
+<!--            padding: 14px 18px;-->
+<!--            border-radius: 8px;-->
+<!--            border: 1px solid rgba(184, 227, 233, 0.5);-->
+<!--            font-size: 15px;-->
+<!--            transition: all 0.3s ease;-->
+<!--            background: var(&#45;&#45;background);-->
+<!--            color: var(&#45;&#45;text);-->
+<!--        }-->
+
+<!--        input::placeholder {-->
+<!--            color: rgba(11, 46, 51, 0.5);-->
+<!--        }-->
+
+<!--        input:focus {-->
+<!--            outline: none;-->
+<!--            border-color: var(&#45;&#45;primary);-->
+<!--            box-shadow: 0 0 0 3px rgba(79, 115, 130, 0.2);-->
+<!--            background: white;-->
+<!--        }-->
+
+<!--        button {-->
+<!--            width: 100%;-->
+<!--            padding: 16px;-->
+<!--            background: var(&#45;&#45;primary);-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            font-size: 16px;-->
+<!--            font-weight: 600;-->
+<!--            border-radius: 8px;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            gap: 10px;-->
+<!--            margin-top: 15px;-->
+<!--            box-shadow: 0 4px 15px rgba(79, 115, 130, 0.3);-->
+<!--        }-->
+
+<!--        button:hover {-->
+<!--            background: var(&#45;&#45;primary-dark);-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 6px 20px rgba(79, 115, 130, 0.4);-->
+<!--        }-->
+
+<!--        .success {-->
+<!--            margin-top: 20px;-->
+<!--            padding: 14px;-->
+<!--            background: rgba(79, 115, 130, 0.1);-->
+<!--            color: var(&#45;&#45;success);-->
+<!--            font-weight: 600;-->
+<!--            border-radius: 8px;-->
+<!--            text-align: center;-->
+<!--            border-left: 4px solid var(&#45;&#45;success);-->
+<!--        }-->
+
+<!--        .error {-->
+<!--            margin-top: 20px;-->
+<!--            padding: 14px;-->
+<!--            background: rgba(193, 106, 106, 0.1);-->
+<!--            color: var(&#45;&#45;danger);-->
+<!--            font-weight: 600;-->
+<!--            border-radius: 8px;-->
+<!--            text-align: center;-->
+<!--            border-left: 4px solid var(&#45;&#45;danger);-->
+<!--        }-->
+
+<!--        /* Animation for form elements */-->
+<!--        @keyframes fadeInForm {-->
+<!--            from { opacity: 0; transform: translateY(10px); }-->
+<!--            to { opacity: 1; transform: translateY(0); }-->
+<!--        }-->
+
+<!--        .form-group {-->
+<!--            animation: fadeInForm 0.5s ease forwards;-->
+<!--        }-->
+
+<!--        .form-group:nth-child(1) { animation-delay: 0.1s; }-->
+<!--        .form-group:nth-child(2) { animation-delay: 0.2s; }-->
+<!--        .form-group:nth-child(3) { animation-delay: 0.3s; }-->
+<!--        .form-group:nth-child(4) { animation-delay: 0.4s; }-->
+<!--        .form-group:nth-child(5) { animation-delay: 0.5s; }-->
+<!--        .form-group:nth-child(6) { animation-delay: 0.6s; }-->
+<!--        .form-group:nth-child(7) { animation-delay: 0.7s; }-->
+<!--        .form-group:nth-child(8) { animation-delay: 0.8s; }-->
+
+<!--        /* Responsive Design */-->
+<!--        @media (max-width: 992px) {-->
+<!--            .sidebar {-->
+<!--                width: 80px;-->
+<!--                overflow: hidden;-->
+<!--            }-->
+
+<!--            .sidebar h2 span, .sidebar a span {-->
+<!--                display: none;-->
+<!--            }-->
+
+<!--            .sidebar a i {-->
+<!--                margin-right: 0;-->
+<!--                font-size: 20px;-->
+<!--            }-->
+
+<!--            .topbar, .content {-->
+<!--                margin-left: 80px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media (max-width: 768px) {-->
+<!--            .sidebar {-->
+<!--                width: 0;-->
+<!--            }-->
+
+<!--            .topbar, .content {-->
+<!--                margin-left: 0;-->
+<!--            }-->
+
+<!--            .card {-->
+<!--                padding: 25px;-->
+<!--            }-->
+
+<!--            .topbar {-->
+<!--                padding: 0 20px;-->
+<!--            }-->
+
+<!--            .topbar h1 {-->
+<!--                font-size: 20px;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--&lt;!&ndash; &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; SIDEBAR &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+<!--<div class="sidebar">-->
+<!--    <div class="sidebar-header">-->
+<!--        <h2><i class="fa-solid fa-graduation-cap"></i> <span>EduAdmin</span></h2>-->
+<!--    </div>-->
+
+<!--    <div class="sidebar-menu">-->
+<!--        <a class="active"><i class="fa-solid fa-user-graduate"></i> <span>Students</span></a>-->
+<!--        <a><i class="fa-solid fa-book"></i> <span>Departments</span></a>-->
+<!--        <a><i class="fa-solid fa-chart-bar"></i> <span>Analytics</span></a>-->
+<!--        <a><i class="fa-solid fa-calendar-alt"></i> <span>Schedule</span></a>-->
+<!--        <a><i class="fa-solid fa-cog"></i> <span>Settings</span></a>-->
+<!--    </div>-->
+
+<!--    <a id="logoutBtn" class="logout">-->
+<!--        <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>-->
+<!--    </a>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; TOP BAR &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+<!--<div class="topbar">-->
+<!--    <h1>Student Management System</h1>-->
+<!--    <div class="user-profile">-->
+<!--        <div class="user-info">-->
+<!--            <div class="user-name">Alex Morgan</div>-->
+<!--            <div class="user-role">Administrator</div>-->
+<!--        </div>-->
+<!--        <i class="fa-solid fa-circle-user"></i>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; MAIN CONTENT &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+<!--<div class="content">-->
+<!--    <div class="card">-->
+<!--        <div class="card-header">-->
+<!--            <h2><i class="fa-solid fa-user-plus"></i> Add Student</h2>-->
+<!--        </div>-->
+
+<!--        <form id="studentForm">-->
+<!--            <div class="form-group">-->
+<!--                <label>Student ID</label>-->
+<!--                <input type="text" id="std_id" placeholder="Enter student ID">-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label>Student Name</label>-->
+<!--                <input type="text" id="std_name" placeholder="Enter full name">-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label>Marks</label>-->
+<!--                <input type="number" id="std_marks" placeholder="Enter marks">-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label>Email</label>-->
+<!--                <input type="email" id="std_email" placeholder="Enter email address">-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label>Admission Date</label>-->
+<!--                <input type="date" id="admissionDate">-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label>City</label>-->
+<!--                <input type="text" id="city" placeholder="Enter city">-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label>State</label>-->
+<!--                <input type="text" id="state" placeholder="Enter state">-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label>Department</label>-->
+<!--                <input type="text" id="dept_name" placeholder="Enter department">-->
+<!--            </div>-->
+
+<!--            <button type="submit">-->
+<!--                <i class="fa-solid fa-user-plus"></i> Add Student-->
+<!--            </button>-->
+
+<!--            <p id="successMsg" class="success"></p>-->
+<!--            <p id="errorMsg" class="error"></p>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    // -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--    //  CHECK LOGIN TOKEN-->
+<!--    // -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--    const token = localStorage.getItem("jwtToken");-->
+<!--    if (!token) {-->
+<!--        window.location.href = "login.html";-->
+<!--    }-->
+
+<!--    // -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--    //  LOGOUT-->
+<!--    // -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--    document.getElementById("logoutBtn").addEventListener("click", () => {-->
+<!--        localStorage.removeItem("jwtToken");-->
+<!--        window.location.href = "login.html";-->
+<!--    });-->
+
+<!--    // -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--    //  ADD STUDENT-->
+<!--    // -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--    document.getElementById("studentForm").addEventListener("submit", async (event) => {-->
+<!--        event.preventDefault();-->
+
+<!--        const studentData = {-->
+<!--            std_id: document.getElementById("std_id").value.trim(),-->
+<!--            std_name: document.getElementById("std_name").value.trim(),-->
+<!--            std_marks: Number(document.getElementById("std_marks").value),-->
+<!--            std_email: document.getElementById("std_email").value.trim(),-->
+<!--            admissionDate: document.getElementById("admissionDate").value,-->
+<!--            address: {-->
+<!--                city: document.getElementById("city").value.trim(),-->
+<!--                state: document.getElementById("state").value.trim()-->
+<!--            },-->
+<!--            department: {-->
+<!--                dept_name: document.getElementById("dept_name").value.trim()-->
+<!--            }-->
+<!--        };-->
+
+<!--        // Clear previous messages-->
+<!--        document.getElementById("successMsg").innerText = "";-->
+<!--        document.getElementById("errorMsg").innerText = "";-->
+
+<!--        // Simple validation-->
+<!--        if (!studentData.std_id || !studentData.std_name || !studentData.std_email) {-->
+<!--            document.getElementById("errorMsg").innerText = "❌ Please fill in all required fields";-->
+<!--            return;-->
+<!--        }-->
+
+<!--        try {-->
+<!--            const response = await fetch("http://localhost:8080/api/students", {-->
+<!--                method: "POST",-->
+<!--                headers: {-->
+<!--                    "Content-Type": "application/json",-->
+<!--                    "Authorization": `Bearer ${token}`-->
+<!--                },-->
+<!--                body: JSON.stringify(studentData)-->
+<!--            });-->
+
+<!--            if (response.ok) {-->
+<!--                document.getElementById("successMsg").innerText = "✅ Student added successfully!";-->
+<!--                document.getElementById("errorMsg").innerText = "";-->
+<!--                document.getElementById("studentForm").reset();-->
+
+<!--                // Clear success message after 5 seconds-->
+<!--                setTimeout(() => {-->
+<!--                    document.getElementById("successMsg").innerText = "";-->
+<!--                }, 5000);-->
+<!--                return;-->
+<!--            }-->
+
+<!--            // Handle backend error messages safely-->
+<!--            const errorText = await response.text();-->
+<!--            document.getElementById("errorMsg").innerText = "❌ Failed: " + errorText;-->
+<!--            document.getElementById("successMsg").innerText = "";-->
+
+<!--        } catch (error) {-->
+<!--            console.error("Error:", error);-->
+<!--            document.getElementById("errorMsg").innerText = "❌ Server error. Try again.";-->
+<!--            document.getElementById("successMsg").innerText = "";-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3A5253;
+            --primary-dark: #2A3D3E;
+            --secondary: #81B292;
+            --accent: #1A4A6B;
+            --danger: #B46464;
+            --text: #2C3E50;
+            --background: #F0F2F0;
+            --card-bg: #FFFFFF;
+            --sidebar-bg: #3A5253;
+            --topbar-bg: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", system-ui, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ------------------ SIDEBAR ------------------ */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            color: white;
+            padding: 25px 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 0 25px 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 25px;
+        }
+
+        .sidebar h2 {
+            font-size: 24px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .sidebar h2 i {
+            font-size: 26px;
+            color: var(--secondary);
+        }
+
+        .sidebar-menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 0 20px;
+        }
+
+        .sidebar a {
+            padding: 16px 20px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar a i {
+            margin-right: 14px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar a:hover {
+            background: rgba(129, 178, 146, 0.3);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            background: rgba(129, 178, 146, 0.4);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .sidebar a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--secondary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .logout {
+            margin-top: auto;
+            background: rgba(180, 100, 100, 0.2);
+            color: white;
+            border-radius: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logout:hover {
+            background: rgba(180, 100, 100, 0.3);
+        }
+
+        /* ------------------ TOPBAR ------------------ */
+        .topbar {
+            margin-left: 280px;
+            height: 70px;
+            background: var(--topbar-bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 99;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: margin-left 0.3s ease;
+        }
+
+        .topbar h1 {
+            font-size: 26px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-profile i {
+            font-size: 26px;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile i:hover {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .user-role {
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        /* ------------------ CONTENT ------------------ */
+        .content {
+            margin-left: 280px;
+            padding: 40px;
+            min-height: calc(100vh - 70px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--background);
+            transition: margin-left 0.3s ease;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 1200px;
+            box-shadow: 0 10px 30px rgba(58, 82, 83, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(129, 178, 146, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .card:hover {
+            box-shadow: 0 15px 40px rgba(58, 82, 83, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(129, 178, 146, 0.5);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+
+        .card h2 i {
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-size: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 8px;
+            border: 1px solid rgba(129, 178, 146, 0.5);
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        input::placeholder {
+            color: rgba(44, 62, 80, 0.6);
+            font-weight: 500;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(58, 82, 83, 0.2);
+            background: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(58, 82, 83, 0.3);
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(58, 82, 83, 0.4);
+        }
+
+        .success {
+            margin-top: 20px;
+            padding: 14px;
+            background: rgba(129, 178, 146, 0.2);
+            color: var(--primary);
+            font-weight: 600;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .error {
+            margin-top: 20px;
+            padding: 14px;
+            background: rgba(180, 100, 100, 0.1);
+            color: var(--danger);
+            font-weight: 600;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid var(--danger);
+        }
+
+        /* ------------------ STUDENTS TABLE ------------------ */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            width: 100%;
+        }
+
+        .students-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            min-width: 800px; /* Ensures table doesn't get too small */
+        }
+
+        .students-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 16px 12px;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        .students-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid rgba(129, 178, 146, 0.2);
+            font-size: 14px;
+        }
+
+        .students-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .students-table tr:hover {
+            background: rgba(129, 178, 146, 0.05);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .btn-edit {
+            background: rgba(26, 74, 107, 0.1);
+            color: var(--accent);
+        }
+
+        .btn-edit:hover {
+            background: rgba(26, 74, 107, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-delete {
+            background: rgba(180, 100, 100, 0.1);
+            color: var(--danger);
+        }
+
+        .btn-delete:hover {
+            background: rgba(180, 100, 100, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* ------------------ MODAL ------------------ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(129, 178, 146, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid rgba(129, 178, 146, 0.3);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-cancel {
+            background: rgba(44, 62, 80, 0.1);
+            color: var(--text);
+        }
+
+        .btn-cancel:hover {
+            background: rgba(44, 62, 80, 0.2);
+        }
+
+        .btn-update {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-update:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ------------------ SEARCH BAR ------------------ */
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-btn {
+            width: auto;
+            padding: 14px 20px;
+            margin-top: 0;
+            white-space: nowrap;
+        }
+
+        /* ------------------ CONTENT SECTIONS ------------------ */
+        .content-section {
+            display: none;
+            width: 100%;
+        }
+
+        .content-section.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Animation for form elements */
+        @keyframes fadeInForm {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            animation: fadeInForm 0.5s ease forwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
+        .form-group:nth-child(7) { animation-delay: 0.7s; }
+        .form-group:nth-child(8) { animation-delay: 0.8s; }
+
+        /* ------------------ MOBILE MENU TOGGLE ------------------ */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 12px;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 101;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ------------------ RESPONSIVE DESIGN ------------------ */
+        /* Large screens (desktops) */
+        @media (max-width: 1200px) {
+            .content {
+                padding: 30px;
+            }
+
+            .card {
+                padding: 30px;
+            }
+        }
+
+        /* Medium screens (tablets) */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+                transform: translateX(0);
+            }
+
+            .sidebar h2 span, .sidebar a span {
+                display: none;
+            }
+
+            .sidebar a i {
+                margin-right: 0;
+                font-size: 20px;
+            }
+
+            .topbar, .content {
+                margin-left: 80px;
+            }
+
+            .students-table {
+                font-size: 14px;
+            }
+
+            .students-table th, .students-table td {
+                padding: 12px 8px;
+            }
+        }
+
+        /* Small screens (mobile) */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                width: 280px;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .topbar, .content {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 0 20px;
+                height: 60px;
+            }
+
+            .topbar h1 {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            .card {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .card-header {
+                margin-bottom: 20px;
+            }
+
+            .card h2 {
+                font-size: 22px;
+            }
+
+            .search-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .search-input {
+                min-width: 100%;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+
+            .students-table {
+                min-width: 700px; /* Slightly smaller for mobile */
+            }
+
+            .students-table th, .students-table td {
+                padding: 10px 6px;
+                font-size: 13px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 6px 10px;
+                justify-content: center;
+            }
+
+            .modal-content {
+                margin: 10px;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .modal-footer .btn {
+                width: 100%;
+            }
+
+            .user-info {
+                display: none;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .topbar h1 {
+                font-size: 18px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .card h2 {
+                font-size: 20px;
+            }
+
+            input {
+                padding: 12px 15px;
+            }
+
+            button {
+                padding: 14px;
+            }
+
+            .students-table {
+                min-width: 600px; /* Further reduced for very small screens */
+            }
+
+            .students-table th, .students-table td {
+                padding: 8px 4px;
+                font-size: 12px;
+            }
+
+            .modal-header {
+                padding: 15px 20px;
+            }
+
+            .modal-body {
+                padding: 15px;
+            }
+
+            .modal-footer {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<!-- Mobile Menu Toggle -->
+<button class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+</button>
+
+<!-- -------------------- SIDEBAR -------------------- -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2><i class="fa-solid fa-graduation-cap"></i> <span>Admin</span></h2>
+    </div>
+
+    <div class="sidebar-menu">
+        <a class="menu-item active" data-target="add-student"><i class="fa-solid fa-user-plus"></i> <span>Add Student</span></a>
+        <a class="menu-item" data-target="view-students"><i class="fa-solid fa-users"></i> <span>View Students</span></a>
+        <a><i class="fa-solid fa-book"></i> <span>Departments</span></a>
+        <a><i class="fa-solid fa-chart-bar"></i> <span>Analytics</span></a>
+        <a><i class="fa-solid fa-calendar-alt"></i> <span>Schedule</span></a>
+        <a><i class="fa-solid fa-cog"></i> <span>Settings</span></a>
+    </div>
+
+    <a id="logoutBtn" class="logout">
+        <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
+    </a>
+</div>
+
+<!-- -------------------- TOP BAR -------------------- -->
+<div class="topbar">
+    <h1>Student Management System</h1>
+    <div class="user-profile">
+        <div class="user-info">
+            <div class="user-name">Niharika Shivadas</div>
+            <div class="user-role">Administrator</div>
+        </div>
+        <i class="fa-solid fa-circle-user"></i>
+    </div>
+</div>
+
+<!-- -------------------- MAIN CONTENT -------------------- -->
+<div class="content">
+    <!-- Add Student Section -->
+    <div class="content-section active" id="add-student">
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-user-plus"></i> Add Student</h2>
+            </div>
+
+            <form id="studentForm">
+                <div class="form-group">
+                    <label>Student ID</label>
+                    <input type="text" id="std_id" placeholder="Enter student ID">
+                </div>
+
+                <div class="form-group">
+                    <label>Student Name</label>
+                    <input type="text" id="std_name" placeholder="Enter full name">
+                </div>
+
+                <div class="form-group">
+                    <label>Marks</label>
+                    <input type="number" id="std_marks" placeholder="Enter marks">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="std_email" placeholder="Enter email address">
+                </div>
+
+                <div class="form-group">
+                    <label>Admission Date</label>
+                    <input type="date" id="admissionDate">
+                </div>
+
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" id="city" placeholder="Enter city">
+                </div>
+
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" id="state" placeholder="Enter state">
+                </div>
+
+                <div class="form-group">
+                    <label>Department</label>
+                    <input type="text" id="deptName" placeholder="Enter department">
+                </div>
+
+                <button type="submit">
+                    <i class="fa-solid fa-user-plus"></i> Add Student
+                </button>
+
+                <p id="successMsg" class="success"></p>
+                <p id="errorMsg" class="error"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Students Section -->
+    <div class="content-section" id="view-students">
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-users"></i> View Students</h2>
+            </div>
+
+            <div class="search-container">
+                <div class="form-group search-input">
+                    <input type="text" id="searchInput" placeholder="Search by name, ID, or department...">
+                </div>
+                <button class="search-btn" id="searchBtn">
+                    <i class="fa-solid fa-search"></i> Search
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="students-table">
+                    <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Marks</th>
+                        <th>Department</th>
+                        <th>City</th>
+                        <th>Admission Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                    <!-- Student data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Student Modal -->
+<div class="modal" id="updateModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-user-edit"></i> Update Student</h3>
+            <span class="close-btn">&times;</span>
+        </div>
+        <form id="updateForm">
+            <div class="modal-body">
+                <input type="hidden" id="updateId">
+                <div class="form-group">
+                    <label>Student Name</label>
+                    <input type="text" id="updateName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="updateEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Marks</label>
+                    <input type="number" id="updateMarks" required>
+                </div>
+                <div class="form-group">
+                    <label>Department</label>
+                    <input type="text" id="updateDept" required>
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" id="updateCity" required>
+                </div>
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" id="updateState" required>
+                </div>
+                <div class="form-group">
+                    <label>Admission Date</label>
+                    <input type="date" id="updateAdmissionDate" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel">Cancel</button>
+                <button type="submit" class="btn btn-update">Update Student</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    // Mobile menu toggle functionality
+    document.getElementById('menuToggle').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('mobile-open');
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+
+        if (window.innerWidth <= 768 &&
+            !sidebar.contains(event.target) &&
+            !menuToggle.contains(event.target) &&
+            sidebar.classList.contains('mobile-open')) {
+            sidebar.classList.remove('mobile-open');
+        }
+    });
+
+    // ---------------------------------------------
+    //  CHECK LOGIN TOKEN
+    // ---------------------------------------------
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+        window.location.href = "login.html";
+    }
+
+    // ---------------------------------------------
+    //  SIDEBAR NAVIGATION
+    // ---------------------------------------------
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', function() {
+            // Update active menu item
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            // Show corresponding content section
+            const target = this.getAttribute('data-target');
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(target).classList.add('active');
+
+            // If viewing students, refresh the table
+            if (target === 'view-students') {
+                loadStudents();
+            }
+
+            // Close mobile menu after selection
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('mobile-open');
+            }
+        });
+    });
+
+    // ---------------------------------------------
+    //  LOGOUT
+    // ---------------------------------------------
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("jwtToken");
+        window.location.href = "login.html";
+    });
+
+    // ---------------------------------------------
+    //  ADD STUDENT
+    // ---------------------------------------------
+    document.getElementById("studentForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const studentData = {
+            std_id: document.getElementById("std_id").value.trim(),
+            std_name: document.getElementById("std_name").value.trim(),
+            std_marks: Number(document.getElementById("std_marks").value),
+            std_email: document.getElementById("std_email").value.trim(),
+            admissionDate: document.getElementById("admissionDate").value,
+            address: {
+                city: document.getElementById("city").value.trim(),
+                state: document.getElementById("state").value.trim()
+            },
+            department: {
+                deptName: document.getElementById("deptName").value.trim()
+            }
+        };
+
+        // Clear previous messages
+        document.getElementById("successMsg").innerText = "";
+        document.getElementById("errorMsg").innerText = "";
+
+        // Simple validation
+        if (!studentData.std_id || !studentData.std_name || !studentData.std_email) {
+            document.getElementById("errorMsg").innerText = "❌ Please fill in all required fields";
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:8080/api/students", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(studentData)
+            });
+
+            if (response.ok) {
+                document.getElementById("successMsg").innerText = "✅ Student added successfully!";
+                document.getElementById("errorMsg").innerText = "";
+                document.getElementById("studentForm").reset();
+
+                // Clear success message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById("successMsg").innerText = "";
+                }, 5000);
+                return;
+            }
+
+            // Handle backend error messages safely
+            const errorText = await response.text();
+            document.getElementById("errorMsg").innerText = "❌ Failed: " + errorText;
+            document.getElementById("successMsg").innerText = "";
+
+        } catch (error) {
+            console.error("Error:", error);
+            document.getElementById("errorMsg").innerText = "❌ Server error. Try again.";
+            document.getElementById("successMsg").innerText = "";
+        }
+    });
+
+    // ---------------------------------------------
+    //  VIEW STUDENTS - LOAD DATA
+    // ---------------------------------------------
+    async function loadStudents() {
+        try {
+            const response = await fetch("http://localhost:8080/api/students", {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const students = await response.json();
+                displayStudents(students);
+            } else {
+                console.error("Failed to fetch students");
+                // For demo purposes, use sample data if API fails
+                displayStudents(getSampleData());
+            }
+        } catch (error) {
+            console.error("Error fetching students:", error);
+            // For demo purposes, use sample data if API fails
+            displayStudents(getSampleData());
+        }
+    }
+
+    // Sample data for demonstration
+    function getSampleData() {
+        return [
+            {
+                std_id: "S001",
+                std_name: "John Smith",
+                std_email: "john.smith@example.com",
+                std_marks: 85,
+                department: { deptName: "Computer Science" },
+                address: { city: "New York", state: "NY" },
+                admissionDate: "2023-01-15"
+            },
+            {
+                std_id: "S002",
+                std_name: "Emma Johnson",
+                std_email: "emma.johnson@example.com",
+                std_marks: 92,
+                department: { deptName: "Mathematics" },
+                address: { city: "Boston", state: "MA" },
+                admissionDate: "2023-02-20"
+            },
+            {
+                std_id: "S003",
+                std_name: "Michael Brown",
+                std_email: "michael.brown@example.com",
+                std_marks: 78,
+                department: { deptName: "Physics" },
+                address: { city: "Chicago", state: "IL" },
+                admissionDate: "2023-03-10"
+            }
+        ];
+    }
+
+    // Display students in the table
+    function displayStudents(students) {
+        const tableBody = document.getElementById("studentsTableBody");
+        tableBody.innerHTML = "";
+
+        if (students.length === 0) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="8" style="text-align: center; padding: 30px;">
+                        <i class="fa-solid fa-user-slash" style="font-size: 24px; margin-bottom: 10px; display: block; color: #aaa;"></i>
+                        No students found
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        students.forEach(student => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${student.std_id}</td>
+                <td>${student.std_name}</td>
+                <td>${student.std_email}</td>
+                <td>${student.std_marks}</td>
+                <td>${student.department.deptName}</td>
+                <td>${student.address.city}</td>
+                <td>${student.admissionDate}</td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-edit edit-btn" data-id="${student.std_id}">
+                            <i class="fa-solid fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-delete delete-btn" data-id="${student.std_id}">
+                            <i class="fa-solid fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // Add event listeners to edit buttons
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const studentId = this.getAttribute('data-id');
+                openUpdateModal(studentId, students);
+            });
+        });
+
+        // Add event listeners to delete buttons
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const studentId = this.getAttribute('data-id');
+                deleteStudent(studentId);
+            });
+        });
+    }
+
+    // ---------------------------------------------
+    //  UPDATE STUDENT
+    // ---------------------------------------------
+    function openUpdateModal(studentId, students) {
+        const student = students.find(s => s.std_id === studentId);
+
+        if (student) {
+            document.getElementById('updateId').value = student.std_id;
+            document.getElementById('updateName').value = student.std_name;
+            document.getElementById('updateEmail').value = student.std_email;
+            document.getElementById('updateMarks').value = student.std_marks;
+            document.getElementById('updateDept').value = student.department.deptName;
+            document.getElementById('updateCity').value = student.address.city;
+            document.getElementById('updateState').value = student.address.state;
+            document.getElementById('updateAdmissionDate').value = student.admissionDate;
+
+            document.getElementById('updateModal').style.display = 'flex';
+        }
+    }
+
+    // Update student form submission
+    document.getElementById('updateForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const studentId = document.getElementById('updateId').value;
+        const updatedData = {
+            std_id:studentId,
+            std_name: document.getElementById('updateName').value,
+            std_email: document.getElementById('updateEmail').value,
+            std_marks: document.getElementById('updateMarks').value,
+            department: {
+                deptName: document.getElementById('updateDept').value
+            },
+            address: {
+                city: document.getElementById('updateCity').value,
+                state: document.getElementById('updateState').value
+            },
+            admissionDate: document.getElementById('updateAdmissionDate').value
+        };
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/students/${studentId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(updatedData)
+            });
+
+            if (response.ok) {
+                // Close modal and refresh student list
+                document.getElementById('updateModal').style.display = 'none';
+                loadStudents();
+
+                // Show success message
+                showMessage("Student updated successfully!", "success");
+            } else {
+                const errorText = await response.text();
+                showMessage("Failed to update student: " + errorText, "error");
+            }
+        } catch (error) {
+            console.error("Error updating student:", error);
+            showMessage("Server error. Please try again.", "error");
+        }
+    });
+
+    // ---------------------------------------------
+    //  DELETE STUDENT
+    // ---------------------------------------------
+    async function deleteStudent(studentId) {
+        if (!confirm("Are you sure you want to delete this student?")) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/students/${studentId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                // Refresh student list
+                loadStudents();
+
+                // Show success message
+                showMessage("Student deleted successfully!", "success");
+            } else {
+                const errorText = await response.text();
+                showMessage("Failed to delete student: " + errorText, "error");
+            }
+        } catch (error) {
+            console.error("Error deleting student:", error);
+            showMessage("Server error. Please try again.", "error");
+        }
+    }
+
+    // ---------------------------------------------
+    //  SEARCH FUNCTIONALITY
+    // ---------------------------------------------
+    document.getElementById('searchBtn').addEventListener('click', function() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+        // This would normally filter the data from the API
+        // For demo purposes, we'll just reload all students and filter client-side
+        loadStudents().then(() => {
+            if (searchTerm.trim() === '') return;
+
+            const rows = document.querySelectorAll('#studentsTableBody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // ---------------------------------------------
+    //  MODAL CONTROLS
+    // ---------------------------------------------
+    document.querySelector('.close-btn').addEventListener('click', function() {
+        document.getElementById('updateModal').style.display = 'none';
+    });
+
+    document.querySelector('.btn-cancel').addEventListener('click', function() {
+        document.getElementById('updateModal').style.display = 'none';
+    });
+
+    window.addEventListener('click', function(e) {
+        if (e.target === document.getElementById('updateModal')) {
+            document.getElementById('updateModal').style.display = 'none';
+        }
+    });
+
+    // ---------------------------------------------
+    //  HELPER FUNCTIONS
+    // ---------------------------------------------
+    function showMessage(text, type) {
+        // Create a temporary message element
+        const message = document.createElement('div');
+        message.className = type === 'success' ? 'success' : 'error';
+        message.textContent = text;
+        message.style.position = 'fixed';
+        message.style.top = '100px';
+        message.style.right = '30px';
+        message.style.zIndex = '1001';
+        message.style.maxWidth = '300px';
+
+        document.body.appendChild(message);
+
+        // Remove message after 5 seconds
+        setTimeout(() => {
+            message.remove();
+        }, 5000);
+    }
+
+    // Initial load of students when page loads
+    // This would normally be called when the View Students section is active
+    // For now, we'll load sample data on page load for demonstration
+    window.addEventListener('DOMContentLoaded', function() {
+        // Load sample data for demonstration
+        displayStudents(getSampleData());
+    });
+</script>
+</body>
+</html>

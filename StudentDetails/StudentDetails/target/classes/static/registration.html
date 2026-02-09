@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <style>
+        body {
+          font-family: "Segoe UI", Arial, sans-serif;
+          background: linear-gradient(135deg, #74ABE2, #5563DE);
+          height: 100vh;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .container {
+          background: white;
+          border-radius: 12px;
+          padding: 30px;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+          width: 350px;
+          text-align: center;
+        }
+
+        h2 {
+          color: #333;
+          margin-bottom: 25px;
+        }
+
+        label {
+          display: block;
+          font-weight: 600;
+          color: #444;
+          margin-top: 10px;
+          text-align: left;
+        }
+
+        input {
+          width: 100%;
+          padding: 10px;
+          margin-top: 5px;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          font-size: 14px;
+        }
+
+        button {
+          width: 100%;
+          padding: 10px;
+          background: #5563DE;
+          color: white;
+          border: none;
+          margin-top: 20px;
+          border-radius: 6px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        button:hover {
+          background: #2d41ba;
+        }
+
+        .message {
+          margin-top: 15px;
+          font-weight: bold;
+        }
+
+        .success {
+          color: green;
+        }
+
+        .error {
+          color: red;
+        }
+
+        a {
+          display: block;
+          margin-top: 15px;
+          text-decoration: none;
+          color: #5563DE;
+          font-weight: 600;
+        }
+
+        a:hover {
+          text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Register User</h2>
+
+    <label for="id">User ID</label>
+    <input type="number" id="id" placeholder="Enter ID">
+
+    <label for="username">Username</label>
+    <input type="text" id="username" placeholder="Enter Username">
+
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <button onclick="registerUser()">Register</button>
+
+    <div class="message" id="message"></div>
+
+    <a href="login.html">Already have an account? Login here</a>
+</div>
+
+<script>
+    async function registerUser() {
+      const id = document.getElementById("id").value.trim();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const messageDiv = document.getElementById("message");
+
+      messageDiv.textContent = "";
+      messageDiv.className = "message";
+
+      if (!id || !username || !password) {
+        messageDiv.textContent = "⚠ Please fill all fields.";
+        messageDiv.classList.add("error");
+        return;
+      }
+
+      const userData = { id: parseInt(id), username, password };
+
+      try {
+        const response = await fetch("http://localhost:8080/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData)
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          messageDiv.textContent = `✅ Registered successfully for ${data.username}`;
+          messageDiv.classList.add("success");
+
+          document.getElementById("id").value = "";
+          document.getElementById("username").value = "";
+          document.getElementById("password").value = "";
+        } else {
+          const errorText = await response.text();
+          messageDiv.textContent = "❌ Registration failed: " + errorText;
+          messageDiv.classList.add("error");
+        }
+      } catch (err) {
+        messageDiv.textContent = "🚫 Error: " + err.message;
+        messageDiv.classList.add("error");
+      }
+    }
+</script>
+
+</body>
+</html>
